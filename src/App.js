@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { acquireToken, getGraphToken } from './adalConfig';
 import './App.css';
+import ReactAi from 'react-appinsights';
 
 class App extends React.Component {
 	state = {
@@ -29,6 +30,16 @@ class App extends React.Component {
 		}
 	}
 
+	logToAi = () => {
+		const Ai = ReactAi.ai();
+
+		Ai.trackEvent('Heeft op zijn naam geklikt', {
+			user: 'Rodney wormsbecher',
+			action: 'De gebruiker heeft izjn naam gelogged',
+			tenant: 'ilionx'
+		});
+	};
+
 	tokenRefresher = () => {
 		acquireToken();
 	};
@@ -42,7 +53,11 @@ class App extends React.Component {
 			userName = this.state.userData.givenName;
 		}
 
-		return <div className="App">Welcome, {userName}</div>;
+		return (
+			<div className="App" onClick={this.logToAi()}>
+				Welcome, {userName}
+			</div>
+		);
 	}
 }
 
