@@ -1,6 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { runWithAdal } from 'react-adal';
+import { authContext } from './adalConfig';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const DO_NOT_LOGIN = false;
+
+runWithAdal(
+	authContext,
+	() => {
+		require('./indexApp');
+	},
+	DO_NOT_LOGIN
+);
